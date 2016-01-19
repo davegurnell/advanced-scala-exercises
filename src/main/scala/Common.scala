@@ -6,4 +6,11 @@ object Common {
 
   def wordStream: Stream[String] =
     wordSource.getLines.toStream
+
+  def time[A](code: => A): (A, Long) = {
+    val a = System.currentTimeMillis
+    val r = code
+    val b = System.currentTimeMillis
+    (r, b - a)
+  }
 }

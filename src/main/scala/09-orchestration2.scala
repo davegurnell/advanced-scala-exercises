@@ -27,23 +27,25 @@ object OrchestrationExample2 {
   import scala.concurrent.Future
   type FutureFallable[A] = EitherT[Future, String, A]
 
+  import scalaz.syntax.either._
   import scalaz.std.scalaFuture._
   import scala.concurrent.ExecutionContext.Implicits._
   final case object RealAvatarService extends AvatarService[FutureFallable] {
     val monad = Monad[FutureFallable]
 
-    def getAvatarUrl(email: String): FutureFallable[String] =
+    def getAvatarUrl(email: String): FutureFallable[String] = {
       if(email contains "example.com") {
-        EitherT.right(Future.successful(s"http://avatarstuff.com/$email"))
+        EitherT(Future.successful(s"http://avatarstuff.com/$email".right))
       } else {
-        EitherT.left(Future.successful("Email not found"))
+        EitherT(Future.successful("Email not found".left))
       }
+    }
 
     def getAvatar(url: String): FutureFallable[Avatar] =
       if(url contains "dave") {
-        EitherT.right(Future.successful(Avatar(url)))
+        EitherT(Future.successful(Avatar(url).right))
       } else {
-        EitherT.left(Future.successful("Avatar not found"))
+        EitherT(Future.successful("Avatar not found".left))
       }
   }
 
