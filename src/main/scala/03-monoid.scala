@@ -13,12 +13,8 @@ object MonoidExample {
   //  - Complete the implementation of `add2`.
   //    This time, summon a Monoid for Int
   //    and use Monoid syntax to sum the list
-  def add2(items: List[Int]): Int = {
-    import scalaz.std.anyVal._
-    import scalaz.syntax.monoid._
-
-    items.foldLeft(mzero[Int]){ _ |+| _ }
-  }
+  def add2(items: List[Int]): Int =
+    ???
 
   println(add2(List(1, 2, 3, 4, 5)))
 
@@ -43,4 +39,7 @@ object MonoidExample {
   //    instead of the default addition monoid
 
   // println(add3(List(1, 2, 3, 4, 5)))
+
+  // This makes this module runnable using `sbt run`:
+  def main(args: Array[String]): Unit = ()
 }
