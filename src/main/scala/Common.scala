@@ -13,4 +13,10 @@ object Common {
     val b = System.currentTimeMillis
     (r, b - a)
   }
+
+  def numCores: Int =
+    Runtime.getRuntime.availableProcessors
+
+  def groupSize[A](values: List[A]): Int =
+    (1.0 * values.length / numCores).ceil.toInt
 }
